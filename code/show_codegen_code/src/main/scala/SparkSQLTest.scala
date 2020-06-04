@@ -25,6 +25,7 @@ object SparkSQLTest {
     df.createOrReplaceTempView("data_test")
 
     val test_sql = spark.sql("select x, y, power(x,y) from data_test")
+    test_sql.queryExecution.debug.codegen()
     test_sql.show()
     spark.stop()
 
