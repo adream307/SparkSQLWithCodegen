@@ -2,7 +2,7 @@
 
 本文介绍如何新建一个 Spark SQL 的例子，[Spark](https://spark.apache.org/) 采用 standalone 的 local 模式, 需要安装 [scala](https://www.scala-lang.org/download/)
 
-本文体所演示的例子位于 `code/new_spark_sql_project` 目录内
+本文所演示的例子位于 `code/new_spark_sql_project` 目录内
 
 ## 新建目录结构
 Spark SQL 工程的目录结构如下所示:
