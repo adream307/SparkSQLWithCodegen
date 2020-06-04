@@ -1,3 +1,5 @@
 Spark SQL with Codegen
 ----
-introduce codegen in spark sql step by step
+Introduce codegen in spark sql step by step
+
+- [New Spark Sql Project](doc/new_spark_sql_project.md)
