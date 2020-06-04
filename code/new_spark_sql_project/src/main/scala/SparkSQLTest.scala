@@ -24,7 +24,7 @@ object SparkSQLTest {
     val df = spark.createDataFrame(spark.sparkContext.parallelize(raw_data), sch)
     df.createOrReplaceTempView("data_test")
 
-    val test_sql = spark.sql("select x, y, x+y from data_test")
+    val test_sql = spark.sql("select x, y, pow(x,y) from data_test")
     test_sql.show()
     spark.stop()
 
