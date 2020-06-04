@@ -1,3 +1,7 @@
 code/new_spark_sql_project/target
 code/new_spark_sql_project/project
 code/new_spark_sql_project/.idea
+
+code/show_codegen_code/target
+code/show_codegen_code/project
+code/show_codegen_code/.idea
