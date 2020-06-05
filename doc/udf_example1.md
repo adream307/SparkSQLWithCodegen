@@ -1,9 +1,13 @@
 # 自定义函数示例1
 
-Spark 原生提供 [UDF](https://docs.databricks.com/spark/latest/spark-sql/udf-scala.html)用于实现自定义函数
+Spark 原生提供[UDF](https://docs.databricks.com/spark/latest/spark-sql/udf-scala.html)用于实现自定义函数
 
 ## UDF 示例
-假设我们的需求是这样的，需要一个名字为 `my_foo` 的函数，改函数接受两个 `double` 类型的参数作为输入，参数名记为 `x，y`，函数输出 `x*y+3` 。
+假设我们的需求是这样的：
+
+- 需要一个名字为 `my_foo` 的函数
+- 该函数接受两个 `double` 类型的参数作为输入，参数名记为 `x，y`
+- 函数输出 `x*y+3` 。
 
 为了实现上述功能，我们在程序中定义了 `my_foo` 匿名函数，并向 `spark` 注册 `udf`。完整代码位于 `code/udf_example1` 目录内
 ```scala
