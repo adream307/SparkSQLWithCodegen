@@ -5,3 +5,7 @@ code/new_spark_sql_project/.idea
 code/show_codegen_code/target
 code/show_codegen_code/project
 code/show_codegen_code/.idea
+
+code/udf_example1/target
+code/udf_example1/project
+code/udf_example1/.idea
