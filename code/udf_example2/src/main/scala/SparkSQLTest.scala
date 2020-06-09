@@ -12,8 +12,6 @@ package org.apache.spark.sql.myfunctions {
 
   case class my_foo(inputExpressions: Seq[Expression]) extends Expression with ExpectsInputTypes with CodegenFallback {
 
-    assert(inputExpressions.length == 2)
-
     override def nullable: Boolean = true
 
     override def eval(input: InternalRow): Any = {
