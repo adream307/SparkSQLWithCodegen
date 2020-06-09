@@ -48,12 +48,12 @@ package org.apache.spark.sql.myfunctions {
 
 ## 程序说明
 1. `myfunctions` 这个 package 必须在 `org.apache.spark.sql` 名字空间下
-2. `my_foo` 需要集成 `Expression`
+2. `my_foo` 需要继承 `Expression`
 3. `ExpectsInputTypes` 和 `CodegenFallback` 属于 `trait`，属于额外约束项目
 4. `ExpectsInputTypes` 确保输入类型必须为 `Double`
-5. `CodegenFallback` 确保不产生 `Codegen` 代码，程序之心路径进入 `eval` 函数
+5. `CodegenFallback` 确保不产生 `Codegen` 代码，程序执行路径进入 `eval` 函数
 6. `my_foo` 的具体实现在 `evla` 函数内
-7. `eval` 首先判断输入数据不为 `null`，然后返回 `x*y+3` 否则返回 `null`
+7. `eval` 首先判断输入数据不为 `null`，然后返回 `x*y+3` ，否则返回 `null`
 
 
 ## 注册并运行程序
