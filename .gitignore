@@ -13,3 +13,7 @@ code/udf_example1/.idea
 code/udf_example2/target
 code/udf_example2/project
 code/udf_example2/.idea
+
+code/codengen_without_null/target
+code/codengen_without_null/project
+code/codengen_without_null/.idea
