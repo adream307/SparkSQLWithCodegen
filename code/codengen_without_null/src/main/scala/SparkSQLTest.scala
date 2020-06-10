@@ -50,7 +50,7 @@ object SparkSQLTest {
       Row(3.0, 4.0)
     )
 
-    val sch = StructType(Array(StructField("x", DoubleType, true), StructField("y", DoubleType, true)))
+    val sch = StructType(Array(StructField("x", DoubleType, false), StructField("y", DoubleType, false)))
 
     val df = spark.createDataFrame(spark.sparkContext.parallelize(raw_data), sch)
     df.createOrReplaceTempView("data_test")

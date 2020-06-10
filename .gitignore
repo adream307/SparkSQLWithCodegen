@@ -17,3 +17,7 @@ code/udf_example2/.idea
 code/codengen_without_null/target
 code/codengen_without_null/project
 code/codengen_without_null/.idea
+
+code/codengen_with_null/target
+code/codengen_with_null/project
+code/codengen_with_null/.idea
