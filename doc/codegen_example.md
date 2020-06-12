@@ -1,6 +1,6 @@
 # Codegen 示例
 
-在之前的文章中，我们介绍了 Spark 中两种自定义函数的实现，在本篇文章中，我们正式介绍用 Codegen 方式实现的自定义函数。为了简化叙述，本篇文章并不介绍如何在 Codegen 中处理 Null 值，假设用户的所有输入数据均为非空。
+在之前的文章中，我们介绍了 Spark 中两种自定义函数的实现，本篇文章中我们将正式介绍用 Codegen 方式实现的自定义函数。为了简化叙述，本篇文章并不介绍如何在 Codegen 中处理 Null 值，假设用户的所有输入数据均为非空。
 
 
 ## Codegen 的自定义函数
@@ -56,7 +56,7 @@ package org.apache.spark.sql.myfunctions {
 4. `doGenCode` 方法为 Codegen 的核心代码
 5. `left_code = inputExpressions(0).genCode(ctx)` 生成 `my_foo` 第一个参数的 Codegen 代码
 6. `right_code = inputExpressions(1).genCode(ctx)` 生成 `my_foo` 第二个参数的 Codegen 代码
-7. `doGenCode` 方法中需要声明一个名为 `${ev.value}` 的变量，并对该变量复制，该变量为即为 `my_foo`最后输出结果
+7. `doGenCode` 方法中需要声明一个名为 `${ev.value}` 的变量，并对该变量赋值，该变量为即为 `my_foo`最后输出结果
 8. 下述代码实现 `x*y+3` 的计算，并将结果赋值给 `${ev.value}`
 ```
 ${CodeGenerator.javaType(DoubleType)} ${ev.value} = ${left_code.value} * ${right_code.value};
