@@ -101,7 +101,7 @@ left_code.code + ctx.nullSafeExec(left_expr.nullable, left_code.isNull) {
 ```scala
 val sch = StructType(Array(StructField("x", DoubleType, true), StructField("y", DoubleType, true)))
 ```
-程序输入效果如下：
+程序输出效果如下：
 ```text
 +----+----+------------+
 |   x|   y|my_foo(x, y)|
@@ -205,7 +205,7 @@ Generated code:
 ```scala
 val sch2 = StructType(Array(StructField("x", DoubleType, false), StructField("y", DoubleType, false)))
 ```
-程序输入效果如下：
+程序输出效果如下：
 ```text
 +---+----+------------+
 |  x|   y|my_foo(x, y)|
@@ -218,7 +218,7 @@ val sch2 = StructType(Array(StructField("x", DoubleType, false), StructField("y"
 +---+----+------------+
 ```
 
-Codegen 生成的完整 java 代码如下，与[上篇]文章的 代码完全一致。
+Codegen 生成的完整 java 代码如下，与[上篇文章](./codegen_example.md)的代码完全一致。
 ```text
 Generated code:
 /* 001 */ public Object generate(Object[] references) {
