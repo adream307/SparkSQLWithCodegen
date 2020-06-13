@@ -1,38 +1,41 @@
 import org.apache.spark.sql.{Row, SparkSession}
-import org.apache.spark.sql.types._
 import org.apache.log4j.Logger
 import org.apache.log4j.Level
+import org.apache.spark.sql.catalyst.util._
+import org.apache.spark.sql.types._
+
 
 package org.apache.spark.sql.myfunctions {
 
-  import org.apache.spark.sql.catalyst.InternalRow
-  import org.apache.spark.sql.catalyst.expressions._
-  import org.apache.spark.sql.catalyst.expressions.codegen._
-  import org.apache.spark.sql.catalyst.expressions.codegen.Block._
+  @SQLUserDefinedType(udt = classOf[my_point_udt])
+  class my_point(val x: Double, val y: Double) extends Serializable {
+    override def hashCode(): Int = 31 * (31 * x.hashCode()) + y.hashCode()
 
-  case class my_foo(inputExpressions: Seq[Expression]) extends Expression with ExpectsInputTypes {
-    override def nullable: Boolean = false
-
-    override def eval(input: InternalRow): Any = ???
-
-    override protected def doGenCode(ctx: CodegenContext, ev: ExprCode): ExprCode = {
-      val left_code = inputExpressions(0).genCode(ctx)
-      val right_code = inputExpressions(1).genCode(ctx)
-      ev.copy(code =
-        code"""
-              | ${left_code.code}
-              | ${right_code.code}
-              |
-              | ${CodeGenerator.javaType(DoubleType)} ${ev.value} = ${left_code.value} * ${right_code.value};
-              | ${ev.value} = ${ev.value} + 3;
-              |""".stripMargin, FalseLiteral)
+    override def equals(other: Any): Boolean = other match {
+      case that: my_point => this.x == that.x && this.y == that.y
+      case _ => false
     }
 
-    override def dataType: DataType = DoubleType
+    override def toString(): String = s"($x, $y)"
+  }
 
-    override def children: Seq[Expression] = inputExpressions
+  class my_point_udt extends UserDefinedType[my_point] {
+    override def sqlType: DataType = ArrayType(DoubleType, false)
 
-    override def inputTypes: Seq[AbstractDataType] = Seq(DoubleType, DoubleType)
+    override def serialize(obj: my_point): GenericArrayData = {
+      val output = new Array[Double](2)
+      output(0) = obj.x
+      output(1) = obj.y
+      new GenericArrayData(output)
+    }
+
+    override def deserialize(datum: Any): my_point = {
+      datum match {
+        case values: ArrayData => new my_point(values.getDouble(0), values.getDouble(1))
+      }
+    }
+
+    override def userClass: Class[my_point] = classOf[my_point]
   }
 
 }
@@ -45,23 +48,24 @@ object SparkSQLTest {
       .appName("spark sql test")
       .getOrCreate()
 
+    import org.apache.spark.sql.myfunctions._
+
     val raw_data = Seq(
-      Row(1.0, 2.0),
-      Row(3.0, 4.0)
+      Row(1, new my_point(1, 1), new my_point(10, 10)),
+      Row(2, new my_point(2, 2), new my_point(20, 20)),
+      Row(3, new my_point(3, 3), new my_point(30, 30)),
+      Row(4, new my_point(4, 4), new my_point(40, 40)),
+      Row(5, new my_point(5, 5), new my_point(50, 50))
     )
 
-    val sch = StructType(Array(StructField("x", DoubleType, false), StructField("y", DoubleType, false)))
+    val sch = StructType(Array(StructField("idx", IntegerType, false), StructField("point1", new my_point_udt, false), StructField("point2", new my_point_udt, false)))
 
     val df = spark.createDataFrame(spark.sparkContext.parallelize(raw_data), sch)
     df.createOrReplaceTempView("data_test")
 
-    import org.apache.spark.sql.myfunctions.my_foo
 
-    spark.sessionState.functionRegistry.createOrReplaceTempFunction("my_foo", my_foo)
-
-    val test_sql = spark.sql("select x, y, my_foo(x,y) from data_test")
+    val test_sql = spark.sql("select idx, point1, point2  from data_test")
     test_sql.explain()
-    test_sql.queryExecution.debug.codegen()
     test_sql.show()
 
     spark.stop()
