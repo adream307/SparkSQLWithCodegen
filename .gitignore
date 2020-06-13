@@ -21,3 +21,7 @@ code/codegen_example/.idea
 code/codegen_with_null/target
 code/codegen_with_null/project
 code/codegen_with_null/.idea
+
+code/udt_example/target
+code/udt_example/project
+code/udt_example/.idea
