@@ -29,3 +29,7 @@ code/udt_example/.idea
 code/udt_udf_example/target
 code/udt_udf_example/project
 code/udt_udf_example/.idea
+
+code/udt_codegen/target
+code/udt_codegen/project
+code/udt_codegen/.idea
