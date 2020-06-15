@@ -5,7 +5,7 @@
 - 函数输出 `my_point(x.x+y.x, x.y+y.y)`
 
 ## Codegen
-和[前文](./codegen_example.md)， `Codegen` 实现的自定义函数也是从 `Expression` 继承，并实现 `doGenCode` 方法。`doGenCode` 也按照 `nullable` 的值分为两部分，完整核心代码如下：
+和[前文](./codegen_example.md)类似， `Codegen` 实现的自定义函数也是从 `Expression` 继承，并实现 `doGenCode` 方法。`doGenCode` 也按照 `nullable` 的值分为两部分，完整核心代码如下：
 ```scala
 case class my_foo(inputExpr: Seq[Expression]) extends Expression with ExpectsInputTypes {
   override def nullable: Boolean = inputExpr(0).nullable || inputExpr(1).nullable
@@ -203,7 +203,7 @@ case class my_foo(inputExpr: Seq[Expression]) extends Expression with ExpectsInp
 /* 133 */
 /* 134 */ }
 ``` 
-其中 `46~57` 包含 `my_foo` 对空置的处理，程序输出结果如下：
+其中 `46~57` 包含 `my_foo` 对空值的处理，程序输出结果如下：
 ```text
 +---+----------+------------+----------------------+
 |idx|    point1|      point2|my_foo(point1, point2)|
