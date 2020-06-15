@@ -1,5 +1,5 @@
 # 自定义数据类型上的自定义函数
-在上篇文章中，我们介绍了自定义数据类型，在本篇文章中，我们介绍如何在自定义数据类型上定义自定义函数，参考前文介绍的 `my_foo` 方法，这里我们介绍两种非 `codegen` 实现的自定义函数
+在[上篇文章](udt_example.md)中，我们介绍了自定义数据类型，在本篇文章中，我们介绍如何在自定义数据类型上定义自定义函数，参考前文介绍的 `my_foo` 方法，这里我们介绍两种非 `codegen` 实现的自定义函数
 
 ## 自定义函数
 自定义函数的需求如下:
@@ -17,7 +17,7 @@ val my_foo1 = (x: my_point, y: my_point) => {
 }
 spark.udf.register("my_foo1", my_foo1)
 ```
-和[前文](./udf_example1.md)略有不同，`UDT` 上自定义函数需要用户在 `UDF` 内判断 `null`， `SparkSQL` 框架并不帮用户处理空值
+和[前文](./udf_example1.md)略有不同，`UDT` 上的自定义函数需要用户在 `UDF` 内判断 `null`， `SparkSQL` 框架并不帮用户处理空值
 
 ### 方法2
 和[前文](./udf_example2.md)类似，该方法从 `Expression` 继承并实现 `eval` 函数
@@ -47,7 +47,7 @@ case class my_foo2(inputExpr: Seq[Expression]) extends Expression with ExpectsIn
   override def children: Seq[Expression] = inputExpr
 }
 ```
-相应的，方法也需要注册
+相应的，该方法也需要注册
 ```scala
 spark.sessionState.functionRegistry.createOrReplaceTempFunction("my_foo2", my_foo2)
 ```
