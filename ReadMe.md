@@ -10,3 +10,4 @@ Spark SQL with Codegen
 - [如何处理 Null](doc/codegen_with_null.md)
 - [自定义数据类型](doc/udt_example.md)
 - [自定义数据类型上的自定义函数](doc/udt_udf_example.md)
+- [自定义数据类型上的 Codegen ](doc/udt_codegen.md)
