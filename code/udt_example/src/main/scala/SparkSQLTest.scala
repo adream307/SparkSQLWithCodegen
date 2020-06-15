@@ -58,7 +58,10 @@ object SparkSQLTest {
       Row(5, new my_point(5, 5), new my_point(50, 50))
     )
 
-    val sch = StructType(Array(StructField("idx", IntegerType, false), StructField("point1", new my_point_udt, false), StructField("point2", new my_point_udt, false)))
+    val sch = StructType(Array(
+      StructField("idx", IntegerType, false),
+      StructField("point1", new my_point_udt, false),
+      StructField("point2", new my_point_udt, false)))
 
     val df = spark.createDataFrame(spark.sparkContext.parallelize(raw_data), sch)
     df.createOrReplaceTempView("data_test")
