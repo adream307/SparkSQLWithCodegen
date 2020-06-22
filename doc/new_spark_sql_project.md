@@ -24,11 +24,11 @@ version := "0.1"
 
 scalaVersion := "2.12.11"
 
-libraryDependencies += "org.apache.spark" %% "spark-core" % "3.0.0-preview2"
-libraryDependencies += "org.apache.spark" %% "spark-sql" % "3.0.0-preview2"
+libraryDependencies += "org.apache.spark" %% "spark-core" % "3.0.0"
+libraryDependencies += "org.apache.spark" %% "spark-sql" % "3.0.0"
 ```
 
-build.sbt 文件指定了 scala 的版本为 2.12.11 , spark 版本为 3.0.0-preview2
+build.sbt 文件指定了 scala 的版本为 2.12.11 , spark 版本为 3.0.0
 
 ## 编写 Spark 程序
 编辑 `new_spark_sql_project/src/main/scala/SparkSQLTest.scala` 内容如下
